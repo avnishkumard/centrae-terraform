@@ -88,4 +88,63 @@ variable "prod-subnet-7" {
 variable "prod-subnet-8" {
   default = "20.0.184.0/21"
   description = "enter the production subnet"
-} 
+}
+
+variable "ecr-repository-name" {
+
+default = "centrae-ecr"
+description = "ECR repository Name use tags like nginx:v2.4-alpine"
+
+}
+
+variable "tagged-image-count" {
+default = 20
+description = "ECR untagged image count"
+}
+
+variable "untagged-image-days" {
+default = 14
+description = "ECR tagged image count"
+}
+
+variable "cluster-names" {
+default = ["centrae-non-prod","centrae-prod"]
+description = "Cluster Names"
+}
+
+
+variable "non-prod-cluster" {
+
+default = "centrae-non-prod"
+description = "Non Production cluster"
+}
+
+variable "prod-cluster" {
+
+default = "centrae-prod"
+description = "Production cluster"
+}
+
+variable "ecs_task_definition_name" {
+
+default = "nginx-service"
+description = "Ecs Task Definition name for the cluster"
+}
+
+variable "ecs-container-name" {
+
+default = "nginx-container"
+description = "Ecs Task Definition container name"
+}
+
+variable "ecs-container-image" {
+
+default = "nginx:latest"
+description = "Ecs Task Definition container image"
+}
+
+variable "ecs-service-name" {
+
+default = "initial-service"
+description = "Ecs Task Definition container image"
+}
