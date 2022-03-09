@@ -1,4 +1,4 @@
-# Cantrae Docs
+# Centrae Docs
 
 ## Getting Started
 
