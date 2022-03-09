@@ -15,6 +15,12 @@ resource "aws_ecs_cluster" "ecs-cluster" {
 
 resource "aws_ecs_task_definition" "nginx" {
   family = var.ecs_task_definition_name
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+
+  #TODO move to variables here
+  cpu                      = 1024
+  memory                   = 2048
 
   container_definitions = jsonencode([
     {
@@ -72,12 +78,57 @@ policy_arn = "${data.aws_iam_policy.AmazonECSTaskExecutionRolePolicy.arn}"
 
 }
 
+resource aws_security_groups
+
+#TODO refactor the services and use for_each
 resource "aws_ecs_service" "ecs_service" {
   name            = var.ecs-service-name
-  for_each = aws_ecs_cluster.ecs-cluster
-  cluster         = each.value.id
+  #for_each = aws_ecs_cluster.ecs-cluster
+  cluster         = aws_ecs_cluster.ecs-cluster["centrae-non-prod"].id
   task_definition = aws_ecs_task_definition.nginx.arn
-  desired_count   = 1
+  launch_type = "FARGATE"
+  
+  desired_count   = 0
+  
+  network_configuration { 
+    subnets = [aws_subnet.non-prod-priv-a.id,
+               aws_subnet.non-prod-priv-b.id,
+               aws_subnet.non-prod-priv-c.id]
+    #security_groups =
+    #assign_public_ip = 
+}
+  #iam_role        = aws_iam_role.ecs_role.arn
+  #depends_on      = [aws_iam_role.ecs_role]
+
+
+  #load_balancer {
+  #  target_group_arn = aws_lb_target_group.foo.arn
+  #  container_name   = "mongo"
+  #  container_port   = 8080
+  #}
+
+  lifecycle {
+    ignore_changes = [desired_count, task_definition]
+    }
+
+}
+
+resource "aws_ecs_service" "ecs_service" {
+  name            = var.ecs-service-name
+  #for_each = aws_ecs_cluster.ecs-cluster
+  cluster         = aws_ecs_cluster.ecs-cluster["centrae-prod"].id
+  task_definition = aws_ecs_task_definition.nginx.arn
+  launch_type = "FARGATE"
+  
+  desired_count   = 0
+  
+  network_configuration {
+    subnets = [aws_subnet.prod-priv-a.id,
+               aws_subnet.prod-priv-b.id,
+               aws_subnet.prod-priv-c.id]
+    #security_groups =
+    #assign_public_ip = 
+}
   #iam_role        = aws_iam_role.ecs_role.arn
   #depends_on      = [aws_iam_role.ecs_role]
 
