@@ -148,3 +148,32 @@ variable "ecs-service-name" {
 default = "initial-service"
 description = "Ecs Task Definition container image"
 }
+
+variable "storage" {
+  default = 5
+  description = "give the database instance allocated_storage in gbs" 
+}
+variable "instance_type" {
+  default = "db.t2.micro"
+  description = "give the database instance_type"
+}
+
+variable "database_engine"{
+  default = "mysql"
+  description = "give the database instance_engine "
+}
+
+variable "database_engine_ver"{
+  default = 5.7
+  description = "give the database instance engine engine version "
+}
+
+variable "database_user_name"{
+  default = "asf"
+  description = "give the database username"
+}
+
+variable "database_user_password"{
+  default = "afdadfada"
+  description = "give the database password"
+}
