@@ -1,5 +1,5 @@
 # This file contains the loadbalancers for the accounts
-# Currently we create one loadbalancer in prod and one in non-prod
+# Currently we create two loadbalancers one in prod and one in non-prod
 # The logical grouping is kept intact, for example any security group for the 
 # load balancer will be stored here and so on.
 

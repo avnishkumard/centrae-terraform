@@ -19,15 +19,15 @@ resource "aws_ecs_task_definition" "nginx" {
   network_mode             = "awsvpc"
 
   #TODO move to variables here
-  cpu    = 1024
-  memory = 2048
+  cpu    = var.ecs_task_cpu
+  memory = var.ecs_task_memory
 
   container_definitions = jsonencode([
     {
       name      = var.ecs-container-name
       image     = var.ecs-container-image
-      cpu       = 256
-      memory    = 512
+      cpu       = var.ecs_container_cpu
+      memory    = var.ecs_container_memory
       essential = true
       portMappings = [
         {

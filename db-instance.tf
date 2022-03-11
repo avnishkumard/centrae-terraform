@@ -1,3 +1,25 @@
+resource "aws_security_group" "database-1" {
+  name = "database-1"
+
+  description = "RDS postgres servers (terraform-managed)"
+  vpc_id = "aws_vpc.db.id"
+
+  # Only postgres in
+  ingress {
+    from_port = 3306
+    to_port = 3306
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Allow all outbound traffic.
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+} 
 resource "aws_db_instance" "non-prod-database" {
   identifier             = "non-prod-database"
   instance_class         = var.instance_type
@@ -6,7 +28,7 @@ resource "aws_db_instance" "non-prod-database" {
   engine_version         = var.database_engine_ver
   username               = var.database_user_name
   password               = var.database_user_password
-  db_subnet_group_name   = [aws_db_subnet_group.db-private-subnet1.Name]
+  db_subnet_group_name   = [aws_db_subnet_group.non-prod-subnet-grp.Name]
   vpc_security_group_ids = [aws_security_group.rds-security.id]
   publicly_accessible    = false
   skip_final_snapshot    = true
@@ -29,8 +51,8 @@ resource "aws_db_instance" "prod-database" {
   engine_version         = var.database_engine_ver
   username               = var.database_user_name
   password               = var.database_user_password
-  db_subnet_group_name   = [aws_db_subnet_group.db-private-subnet1.Name]
-  vpc_security_group_ids = [aws_security_group.rds-security.id]
+  db_subnet_group_name   = [aws_db_subnet_group.prod-subnet-grp.Name]
+  vpc_security_group_ids = [aws_security_group.database-1.id]
   publicly_accessible    = false
   skip_final_snapshot    = true
 }

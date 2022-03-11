@@ -170,6 +170,19 @@ variable "alb_cidr_block" {
   description = "ALB ingress CIDR block"
 }
 
+variable "ecs_task_cpu" {
+default = 256
+}
+variable "ecs_task_memory" {
+default = 512
+}
+
+variable "ecs_container_cpu" {
+default = 256
+}
+variable "ecs_container_memory" {
+default = 512
+}
 variable "storage" {
   default = 5
   description = "give the database instance allocated_storage in gbs" 
