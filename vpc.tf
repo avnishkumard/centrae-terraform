@@ -14,9 +14,9 @@ resource "aws_vpc" "Prod-vpc" {
   }
 }
 resource "aws_vpc_peering_connection" "non-prod_and_prod-vpc-peer" {
-  peer_vpc_id   = aws_vpc.Prod-vpc.id
-  vpc_id        = aws_vpc.non-Prod-vpc.id
-  auto_accept   = true
+  peer_vpc_id = aws_vpc.Prod-vpc.id
+  vpc_id      = aws_vpc.non-Prod-vpc.id
+  auto_accept = true
 
   tags = {
     Name = "VPC Peering"

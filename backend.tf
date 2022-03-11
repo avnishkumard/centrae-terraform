@@ -5,48 +5,48 @@
 #TODO import S3 bucket
 
 resource "aws_s3_bucket" "tf-backend-s3" {
-    bucket                               = "centrae-tf-backend"
-    hosted_zone_id                       = "Z3BJ6K6RIION7M"
-    tags                                 = {}
-    tags_all                             = {}
+  bucket         = "centrae-tf-backend"
+  hosted_zone_id = "Z3BJ6K6RIION7M"
+  tags           = {}
+  tags_all       = {}
 }
 
 resource "aws_dynamodb_table" "tf-backend-dynamodb" {
-name = "centrae-tf-state"
-billing_mode   = "PROVISIONED"
+  name         = "centrae-tf-state"
+  billing_mode = "PROVISIONED"
 
-read_capacity  = 1
-write_capacity = 1
-hash_key       = "LockID"
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "LockID"
 
-attribute {
+  attribute {
     name = "LockID"
     type = "S"
   }
 
-    stream_enabled = false
-    table_class    = "STANDARD"
-    tags           = {
-        "Name" = "tf-state-lock"
-    }
-    tags_all       = {
-        "Name" = "tf-state-lock"
-    }
+  stream_enabled = false
+  table_class    = "STANDARD"
+  tags = {
+    "Name" = "tf-state-lock"
+  }
+  tags_all = {
+    "Name" = "tf-state-lock"
+  }
 
-    point_in_time_recovery {
-        enabled = false
-    }
+  point_in_time_recovery {
+    enabled = false
+  }
 
-    timeouts {}
+  timeouts {}
 
-    ttl {
-        attribute_name=""
-        enabled = false
-    }
+  ttl {
+    attribute_name = ""
+    enabled        = false
+  }
 
-    
-    lifecycle {
-    ignore_changes = [read_capacity,write_capacity]
-    }
+
+  lifecycle {
+    ignore_changes = [read_capacity, write_capacity]
+  }
 
 }

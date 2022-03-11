@@ -14,13 +14,13 @@ resource "aws_ecs_cluster" "ecs-cluster" {
 
 
 resource "aws_ecs_task_definition" "nginx" {
-  family = var.ecs_task_definition_name
+  family                   = var.ecs_task_definition_name
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
 
   #TODO move to variables here
-  cpu                      = 1024
-  memory                   = 2048
+  cpu    = 1024
+  memory = 2048
 
   container_definitions = jsonencode([
     {
@@ -67,36 +67,105 @@ resource "aws_iam_role" "ecs_role" {
 }
 
 data "aws_iam_policy" "AmazonECSTaskExecutionRolePolicy" {
-arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+  arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
 
 resource "aws_iam_role_policy_attachment" "ecs-task-execution-policy-attach" {
 
-role = aws_iam_role.ecs_role.id
-policy_arn = "${data.aws_iam_policy.AmazonECSTaskExecutionRolePolicy.arn}"
+  role       = aws_iam_role.ecs_role.id
+  policy_arn = data.aws_iam_policy.AmazonECSTaskExecutionRolePolicy.arn
 
 }
 
-resource aws_security_groups
+
+locals {
+  tvpc_ids = {
+    prod     = aws_vpc.Prod-vpc
+    non-prod = aws_vpc.non-Prod-vpc
+  }
+}
+resource "aws_security_group" "ecs_sec_group" {
+  name        = "http-${each.key}"
+  description = "Allow http inbound traffic"
+  #for_each = toset(var.vpc_names)
+  for_each = local.tvpc_ids
+
+  #TODO switch to loadbalancer here
+  #vpc_id      = aws_vpc.Prod-vpc.id
+  vpc_id = each.value.id
+  ingress {
+    description = "TLS from VPC"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    #cidr_blocks      = ["aws_vpc.${each.value.cidr_block}","aws_vpc.${each.value.cidr_block}"]
+
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${each.key}-http"
+  }
+
+}
+
+
+#resource aws_security_group ecs_sec_group_nonprod {
+#name        = "allow_http"
+#description = "Allow http inbound traffic"
+##for_each = toset(var.vpc_names)
+#
+##TODO switch to loadbalancer here
+#vpc_id      = aws_vpc.non-Prod-vpc.id 
+##vpc_id = "aws_vpc.${each.key}.id"
+#  ingress {
+#    description      = "TLS from VPC"
+#    from_port        = 80
+#    to_port          = 80
+#    protocol         = "tcp"
+#    #cidr_blocks      = ["aws_vpc.${each.value.cidr_block}","aws_vpc.${each.value.cidr_block}"]
+#
+#    cidr_blocks      = ["0.0.0.0/0"]
+#  }
+#
+#  egress {
+#    from_port        = 0
+#    to_port          = 0
+#    protocol         = "-1"
+#    cidr_blocks      = ["0.0.0.0/0"]
+#  }
+#
+#  tags = {
+#    Name = "allow_http"
+#  }
+#
+#}
 
 #TODO refactor the services and use for_each
 resource "aws_ecs_service" "ecs_service" {
-  name            = var.ecs-service-name
+  name = var.ecs-service-name
   #for_each = aws_ecs_cluster.ecs-cluster
   cluster         = aws_ecs_cluster.ecs-cluster["centrae-non-prod"].id
   task_definition = aws_ecs_task_definition.nginx.arn
-  launch_type = "FARGATE"
-  
-  desired_count   = 0
-  
-  network_configuration { 
+  launch_type     = "FARGATE"
+
+  desired_count = 0
+
+  network_configuration {
     subnets = [aws_subnet.non-prod-priv-a.id,
-               aws_subnet.non-prod-priv-b.id,
-               aws_subnet.non-prod-priv-c.id]
+      aws_subnet.non-prod-priv-b.id,
+    aws_subnet.non-prod-priv-c.id]
     #security_groups =
     #assign_public_ip = 
-}
+  }
   #iam_role        = aws_iam_role.ecs_role.arn
   #depends_on      = [aws_iam_role.ecs_role]
 
@@ -109,26 +178,26 @@ resource "aws_ecs_service" "ecs_service" {
 
   lifecycle {
     ignore_changes = [desired_count, task_definition]
-    }
+  }
 
 }
 
-resource "aws_ecs_service" "ecs_service" {
-  name            = var.ecs-service-name
+resource "aws_ecs_service" "ecs_service-prod" {
+  name = var.ecs-service-name
   #for_each = aws_ecs_cluster.ecs-cluster
   cluster         = aws_ecs_cluster.ecs-cluster["centrae-prod"].id
   task_definition = aws_ecs_task_definition.nginx.arn
-  launch_type = "FARGATE"
-  
-  desired_count   = 0
-  
+  launch_type     = "FARGATE"
+
+  desired_count = 0
+
   network_configuration {
     subnets = [aws_subnet.prod-priv-a.id,
-               aws_subnet.prod-priv-b.id,
-               aws_subnet.prod-priv-c.id]
+      aws_subnet.prod-priv-b.id,
+    aws_subnet.prod-priv-c.id]
     #security_groups =
     #assign_public_ip = 
-}
+  }
   #iam_role        = aws_iam_role.ecs_role.arn
   #depends_on      = [aws_iam_role.ecs_role]
 
@@ -141,6 +210,6 @@ resource "aws_ecs_service" "ecs_service" {
 
   lifecycle {
     ignore_changes = [desired_count, task_definition]
-    }
+  }
 
 }

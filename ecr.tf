@@ -10,7 +10,7 @@ resource "aws_ecr_repository" "ecr-repo" {
 resource "aws_ecr_lifecycle_policy" "ecr-repo-policy" {
   repository = aws_ecr_repository.ecr-repo.name
 
-policy = <<EOF
+  policy = <<EOF
 {
     "rules": [
         {
