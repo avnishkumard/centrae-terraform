@@ -28,8 +28,8 @@ resource "aws_db_instance" "non-prod-database" {
   engine_version         = var.database_engine_ver
   username               = var.database_user_name
   password               = var.database_user_password
-  db_subnet_group_name   = [aws_db_subnet_group.non-prod-subnet-grp.Name]
-  vpc_security_group_ids = [aws_security_group.rds-security.id]
+  db_subnet_group_name   = aws_db_subnet_group.non-prod-subnet-grp.name
+  vpc_security_group_ids = [aws_security_group.database-1.id]
   publicly_accessible    = false
   skip_final_snapshot    = true
 }
@@ -51,7 +51,7 @@ resource "aws_db_instance" "prod-database" {
   engine_version         = var.database_engine_ver
   username               = var.database_user_name
   password               = var.database_user_password
-  db_subnet_group_name   = [aws_db_subnet_group.prod-subnet-grp.Name]
+  db_subnet_group_name   = aws_db_subnet_group.prod-subnet-grp.name
   vpc_security_group_ids = [aws_security_group.database-1.id]
   publicly_accessible    = false
   skip_final_snapshot    = true
