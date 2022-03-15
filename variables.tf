@@ -211,3 +211,9 @@ variable "database_user_password"{
   default = "afdadfada"
   description = "give the database password"
 }
+
+
+variable "s3_bucket_name" {
+  type    = list
+  default = ["prod_bucket", "stage-bucket", "qa_bucket"]
+}
