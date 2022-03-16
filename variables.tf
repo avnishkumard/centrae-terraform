@@ -217,3 +217,69 @@ variable "s3_bucket_name" {
   type    = list
   default = ["prod_bucket", "stage-bucket", "qa_bucket"]
 }
+
+
+
+variable "high-cpu-utilaztion-alarm-name" {
+  type        = string
+  description = "high cpu alarm name"
+  default     = "high_cpu"
+}
+
+variable "ecs-alert-servicecount" {
+  type        = string
+  description = "low cpu alarm name"
+  default     = "servicecount"
+}
+variable "high-mem-utilaztion-alarm-name" {
+  type        = string
+  description = "The name of the ECS cluster to monitor"
+  default     = "high_mem"
+}
+variable "ecs-task-count" {
+  type        = string
+  description = "The name of the ECS cluster to monitor"
+  default     = "task-count"
+}
+variable "cluster" {
+  type        = string
+  description = "The name of the ECS cluster to monitor"
+  default     = "demo-cluster"
+}
+variable "load_name" {
+  type        = string
+  description = "The name of the ECS cluster to monitor"
+  default     = ""
+}
+
+
+
+variable "high-network-utilaztion-alarm-name" {
+  type        = string
+  description = "The name of the ECS cluster to monitor"
+  default     = "high_network"
+}
+variable "period" {
+  type        = number
+  description = "Duration in seconds to evaluate for the alarm"
+  default     = 60
+  }
+  
+  variable "evaluation_periods" {
+  type        = number
+  description = "Number of periods to evaluate for the alarm"
+  default     = 1
+}
+variable "cpu_utilization_high_threshold" {
+  type        = number
+  description = "The maximum percentage of CPU utilization average"
+  default     = 80
+}
+
+variable "cpu_utilization_Low_threshold" {
+  type        = number
+  description = "The min percentage of CPU utilization average"
+  default     = 60
+}
+
+
