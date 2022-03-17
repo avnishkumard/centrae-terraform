@@ -215,7 +215,7 @@ variable "database_user_password"{
 
 variable "s3_bucket_name" {
   type    = list
-  default = ["prod_bucket", "stage-bucket", "qa_bucket"]
+  default = ["frontend-prod-centrae", "frontend-nonprod-centrae"]
 }
 
 
@@ -281,5 +281,3 @@ variable "cpu_utilization_Low_threshold" {
   description = "The min percentage of CPU utilization average"
   default     = 60
 }
-
-

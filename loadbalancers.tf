@@ -148,7 +148,59 @@ resource "aws_lb" "lb-non-prod" {
   }
 }
 
+resource "aws_lb_listener" "backend-nonprod" {
+  load_balancer_arn = aws_lb.lb-non-prod.arn
+  port              = "80"
+  protocol          = "HTTP"
 
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.alb-dummy-np.arn
+  }
+}
+
+
+# Needs certificate https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener
+#resource "aws_lb_listener" "backend-np" {
+#  load_balancer_arn = aws_lb.lb-non-prod
+#  port              = "443"
+#  protocol          = "HTTPS"
+#  ssl_policy        = "ELBSecurityPolicy-2016-08"
+#  certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
+#
+#  default_action {
+#    type             = "forward"
+#    target_group_arn = aws_lb_target_group.front_end.arn
+#  }
+#}
+#
+resource "aws_lb_target_group" "alb-dummy-np" {
+
+  name        = "dummy-nonprod"
+  port        = 80
+  protocol    = "HTTP"
+  target_type = "ip"
+  vpc_id      = aws_vpc.non-Prod-vpc.id
+lifecycle {
+      create_before_destroy = true
+    }
+}
+
+resource "aws_lb_listener_rule" "backend-host-rule-np" {
+  listener_arn = aws_lb_listener.backend-nonprod.arn
+  priority     = 99
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.alb-dummy-np.arn
+  }
+
+  condition {
+    host_header {
+      values = ["dummydomain.com"]
+    }
+  }
+}
 resource "aws_lb" "lb-prod" {
   name               = var.alb-name[1]
   internal           = false
@@ -171,4 +223,57 @@ resource "aws_lb" "lb-prod" {
     aws_s3_bucket.alb-logs
   ]
 
+}
+
+resource "aws_lb_listener" "backend-prod" {
+  load_balancer_arn = aws_lb.lb-prod.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.alb-dummy-p.arn
+  }
+}
+
+# Needs certificate https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener
+#resource "aws_lb_listener" "backend-np" {
+#  load_balancer_arn = aws_lb.lb-non-prod
+#  port              = "443"
+#  protocol          = "HTTPS"
+#  ssl_policy        = "ELBSecurityPolicy-2016-08"
+#  certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
+#
+#  default_action {
+#    type             = "forward"
+#    target_group_arn = aws_lb_target_group.front_end.arn
+#  }
+#}
+#
+resource "aws_lb_target_group" "alb-dummy-p" {
+
+  name        = "dummy-prod"
+  port        = 80
+  protocol    = "HTTP"
+  target_type = "ip"
+  vpc_id      = aws_vpc.Prod-vpc.id
+  lifecycle {
+      create_before_destroy = true
+    }
+}
+
+resource "aws_lb_listener_rule" "backend-host-rule-p" {
+  listener_arn = aws_lb_listener.backend-prod.arn
+  priority     = 99
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.alb-dummy-p.arn
+  }
+
+  condition {
+    host_header {
+      values = ["dummydomain.com"]
+    }
+  }
 }

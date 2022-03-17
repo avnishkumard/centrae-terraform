@@ -15,7 +15,10 @@ resource "aws_route_table" "non-pro-pub-route" {
 resource "aws_route_table" "non-pro-pri-route" {
   vpc_id = aws_vpc.non-Prod-vpc.id
 
-  route = []
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.non-prod-ng.id
+    }
 
   tags = {
     Name = "non-Prod-pri-route"
@@ -38,7 +41,10 @@ resource "aws_route_table" "pro-pub-route" {
 resource "aws_route_table" "pro-pri-route" {
   vpc_id = aws_vpc.Prod-vpc.id
 
-  route = []
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.prod-ng.id
+  }
 
   tags = {
     Name = "Pro-pri-route"
