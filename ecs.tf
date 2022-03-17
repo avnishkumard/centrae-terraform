@@ -177,7 +177,7 @@ resource "aws_ecs_service" "ecs_service" {
   #}
 
   lifecycle {
-    ignore_changes = [desired_count, task_definition]
+    ignore_changes = [desired_count]
   }
 
 }
@@ -209,7 +209,7 @@ resource "aws_ecs_service" "ecs_service-prod" {
   #}
 
   lifecycle {
-    ignore_changes = [desired_count, task_definition]
+    ignore_changes = [desired_count]
   }
 
 }

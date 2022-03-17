@@ -1,6 +1,6 @@
 resource "aws_vpc" "non-Prod-vpc" {
   cidr_block = var.non-Prod-vpc
-
+  enable_dns_hostnames = true
   tags = {
     Name = "non-prod-vpc_"
   }
@@ -8,7 +8,7 @@ resource "aws_vpc" "non-Prod-vpc" {
 
 resource "aws_vpc" "Prod-vpc" {
   cidr_block = var.Prod-vpc
-
+  enable_dns_hostnames = true
   tags = {
     Name = "Prod-vpc_"
   }
