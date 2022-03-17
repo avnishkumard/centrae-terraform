@@ -4,7 +4,7 @@ resource "aws_subnet" "non-prod-pub-a" {
   availability_zone = var.availability-zone-1
 
   tags = {
-    "Name"          = "non-prod-pub-a"
+    "Name" = "non-prod-pub-a"
   }
 }
 resource "aws_subnet" "non-prod-priv-a" {
@@ -13,7 +13,7 @@ resource "aws_subnet" "non-prod-priv-a" {
   availability_zone = var.availability-zone-1
 
   tags = {
-    "Name"          = "non-prod-priv-a"
+    "Name" = "non-prod-priv-a"
   }
 }
 resource "aws_subnet" "non-prod-pub-b" {
@@ -22,7 +22,7 @@ resource "aws_subnet" "non-prod-pub-b" {
   availability_zone = var.availability-zone-2
 
   tags = {
-    "Name"          = "non-prod-pub-b"
+    "Name" = "non-prod-pub-b"
   }
 }
 resource "aws_subnet" "non-prod-priv-b" {
@@ -31,7 +31,7 @@ resource "aws_subnet" "non-prod-priv-b" {
   availability_zone = var.availability-zone-2
 
   tags = {
-    "Name"          = "non-prod-priv-b"
+    "Name" = "non-prod-priv-b"
   }
 }
 resource "aws_subnet" "non-prod-pub-c" {
@@ -40,7 +40,7 @@ resource "aws_subnet" "non-prod-pub-c" {
   availability_zone = var.availability-zone-3
 
   tags = {
-    "Name"          = "non-prod-pub-c"
+    "Name" = "non-prod-pub-c"
   }
 }
 resource "aws_subnet" "non-prod-priv-c" {
@@ -49,7 +49,7 @@ resource "aws_subnet" "non-prod-priv-c" {
   availability_zone = var.availability-zone-3
 
   tags = {
-    "Name"          = "non-prod-priv-c"
+    "Name" = "non-prod-priv-c"
   }
 }
 
@@ -59,7 +59,7 @@ resource "aws_subnet" "non-prod-pub-d" {
   availability_zone = var.availability-zone-4
 
   tags = {
-    "Name"          = "non-prod-pub-d"
+    "Name" = "non-prod-pub-d"
   }
 }
 resource "aws_subnet" "non-prod-priv-d" {
@@ -68,7 +68,7 @@ resource "aws_subnet" "non-prod-priv-d" {
   availability_zone = var.availability-zone-4
 
   tags = {
-    "Name"          = "non-prod-priv-d"
+    "Name" = "non-prod-priv-d"
   }
 }
 
@@ -80,7 +80,7 @@ resource "aws_subnet" "prod-pub-a" {
   availability_zone = var.availability-zone-1
 
   tags = {
-    "Name"          = "prod-pub-a"
+    "Name" = "prod-pub-a"
   }
 }
 resource "aws_subnet" "prod-priv-a" {
@@ -89,7 +89,7 @@ resource "aws_subnet" "prod-priv-a" {
   availability_zone = var.availability-zone-1
 
   tags = {
-    "Name"          = "prod-priv-a"
+    "Name" = "prod-priv-a"
   }
 }
 resource "aws_subnet" "prod-pub-b" {
@@ -98,7 +98,7 @@ resource "aws_subnet" "prod-pub-b" {
   availability_zone = var.availability-zone-2
 
   tags = {
-    "Name"          = "prod-pub-b"
+    "Name" = "prod-pub-b"
   }
 }
 resource "aws_subnet" "prod-priv-b" {
@@ -107,7 +107,7 @@ resource "aws_subnet" "prod-priv-b" {
   availability_zone = var.availability-zone-2
 
   tags = {
-    "Name"          = "prod-priv-b"
+    "Name" = "prod-priv-b"
   }
 }
 resource "aws_subnet" "prod-pub-c" {
@@ -116,7 +116,7 @@ resource "aws_subnet" "prod-pub-c" {
   availability_zone = var.availability-zone-3
 
   tags = {
-    "Name"          = "prod-pub-c"
+    "Name" = "prod-pub-c"
   }
 }
 resource "aws_subnet" "prod-priv-c" {
@@ -125,7 +125,7 @@ resource "aws_subnet" "prod-priv-c" {
   availability_zone = var.availability-zone-3
 
   tags = {
-    "Name"          = "prod-priv-c"
+    "Name" = "prod-priv-c"
   }
 }
 
@@ -135,7 +135,7 @@ resource "aws_subnet" "prod-pub-d" {
   availability_zone = var.availability-zone-4
 
   tags = {
-    "Name"          = "prod-pub-d"
+    "Name" = "prod-pub-d"
   }
 }
 resource "aws_subnet" "prod-priv-d" {
@@ -144,7 +144,7 @@ resource "aws_subnet" "prod-priv-d" {
   availability_zone = var.availability-zone-4
 
   tags = {
-    "Name"          = "prod-priv-d"
+    "Name" = "prod-priv-d"
   }
 }
 
