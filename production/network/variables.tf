@@ -11,3 +11,5 @@ variable "private_subnets" {}
 variable "non-Prod-vpc" {
 description = "Hardcoded ID for now"
 }
+
+variable "peer_cidr" {}

@@ -2,7 +2,7 @@ resource "aws_security_group" "database-1" {
   name = "database-1"
 
   description = "RDS postgres servers (terraform-managed)"
-  vpc_id = "aws_vpc.db.id"
+  vpc_id = "aws_vpc.non-prod-vpc.id"
 
   # Only postgres in
   ingress {
