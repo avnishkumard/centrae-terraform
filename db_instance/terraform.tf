@@ -1,3 +1,14 @@
+# This Accesses the data from the network outputs.tf files
+data "terraform_remote_state" "network" {
+  backend = "s3"
+  config = {
+    bucket = "centrae-tf-prod"
+    key    = "network/terraform.tfstate"
+    region = "us-west-2"
+  }
+}
+
+
 terraform {
   required_providers {
     aws = {
