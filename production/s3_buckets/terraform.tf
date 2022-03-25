@@ -2,11 +2,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "3.69"
+      version = "4.4.0"
     }
   }
   backend "s3" {
-    key               = "s3/terraform.tfstate"
+    key               = "s3_bucket/terraform.tfstate"
     bucket            = "centrae-tf-prod"
     encrypt           = true
     profile           = "signiance-centrae"

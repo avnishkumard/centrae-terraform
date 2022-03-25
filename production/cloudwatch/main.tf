@@ -1,5 +1,5 @@
 module "metric_alarm" {
-  source  = "terraform-aws-modules/cloudwatch/aws//modules/metric-alarm"
+  source  = "terraform-aws-modules/cloudwatch/awsmodules/metric-alarm"
   version = "~> 2.0"
 
   alarm_name          = var.alarm_name
@@ -15,7 +15,7 @@ module "metric_alarm" {
   statistic   = "Maximum"
 
   alarm_actions = [""]
- dimensions = {
+ dimensions = {//
     ClusterName =var.cluster
   }
 
