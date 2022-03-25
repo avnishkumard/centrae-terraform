@@ -1,24 +1,12 @@
-# This Accesses the data from the network outputs.tf files
-data "terraform_remote_state" "network" {
-  backend = "s3"
-  config = {
-    bucket = "centrae-tf-prod"
-    key    = "network/terraform.tfstate"
-    region = "us-west-2"
-    profile = "signiance-centrae"
-  }
-}
-
-
 terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.4.0"
+      version = "3.69"
     }
   }
   backend "s3" {
-    key               = "db_instance/terraform.tfstate"
+    key               = "s3/terraform.tfstate"
     bucket            = "centrae-tf-prod"
     encrypt           = true
     profile           = "signiance-centrae"
