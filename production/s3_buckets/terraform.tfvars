@@ -1,0 +1,1 @@
+bucket_names = ["prod_bucket_abs","non-prod_bucket"]
