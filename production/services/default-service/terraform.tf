@@ -1,3 +1,13 @@
+data "terraform_remote_state" "ecs" {
+  backend = "s3"
+  config = {
+    bucket  = "centrae-tf-prod"
+    key     = "ecs/terraform.tfstate"
+    region  = "us-west-2"
+    profile = "signiance-centrae"
+  }
+}
+
 data "terraform_remote_state" "network" {
   backend = "s3"
   config = {
@@ -8,6 +18,15 @@ data "terraform_remote_state" "network" {
   }
 }
 
+data "terraform_remote_state" "alb" {
+  backend = "s3"
+  config = {
+    bucket = "centrae-tf-prod"
+    key    = "alb/terraform.tfstate"
+    region = "us-west-2"
+    profile = "signiance-centrae"
+  }
+}
 terraform {
   required_providers {
     aws = {
@@ -16,7 +35,7 @@ terraform {
     }
   }
   backend "s3" {
-    key               = "alb/terraform.tfstate"
+    key               = "default-service/terraform.tfstate"
     bucket            = "centrae-tf-prod"
     encrypt           = true
     profile           = "signiance-centrae"
@@ -35,14 +54,8 @@ terraform {
   #  dynamodb_table    = "signiance-test"
 
   #}
+
 }
-
-
-#provider "aws" {
-#  region  = "us-west-2"
-#
-#  profile = "signiance-default"
-#}
 
 provider "aws" {
   region = "us-west-2"
