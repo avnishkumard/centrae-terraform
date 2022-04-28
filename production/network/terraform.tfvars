@@ -15,5 +15,5 @@ private_subnets = [
   "20.0.168.0/21",
   "20.0.184.0/21"
 ]
-non-Prod-vpc = "vpc-07e026ed7db98072c"
+non-Prod-vpc = "vpc-00b2f03fc8424e62c"
 peer_cidr = "20.0.0.0/17"

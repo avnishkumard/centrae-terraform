@@ -1,7 +1,7 @@
 locals {
 
   vpc_id          = data.terraform_remote_state.network.outputs.vpc_id
-  private_subnets = data.terraform_remote_state.network.outputs.public_subnets
+  private_subnets = data.terraform_remote_state.network.outputs.private_subnets
   public_subnets  = data.terraform_remote_state.network.outputs.public_subnets
 
 }

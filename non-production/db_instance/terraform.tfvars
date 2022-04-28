@@ -10,7 +10,7 @@ username ="rdsuser"
 performance_insights_retention_period=7
 tags = {
   Terraform   = true
-  Environment = "Production"
+  Environment = "Non-Production"
 }
 
 security_group_name = "sg_rds"

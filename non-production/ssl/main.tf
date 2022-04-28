@@ -12,7 +12,7 @@ resource "aws_acm_certificate" "centrae_com" {
 
   tags = merge(
     {
-      Name = "Centrae.com"
+      Name = "Centrea.com"
     }
   )
 }

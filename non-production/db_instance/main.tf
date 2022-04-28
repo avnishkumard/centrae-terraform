@@ -58,7 +58,7 @@ module "db" {
 
 
   create_db_subnet_group = true
-  subnet_ids             = local.private_subnets
+  subnet_ids             = slice(local.private_subnets,0,2)
 
   maintenance_window              = var.maintenance_window
   backup_window                   = var.backup_window
