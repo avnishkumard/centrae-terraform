@@ -20,7 +20,7 @@ resource "aws_ecs_task_definition" "task" {
       cpu          = var.cd_cpu
       memory       = var.cd_mem
       essential    = true
-      secrets  = var.env_vars
+      secrets      = var.env_vars
       portMappings = var.cd_portMappings
       logConfiguration = {
         logDriver = "awslogs"
