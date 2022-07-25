@@ -77,6 +77,7 @@ module "alb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 6.8.0"
 
+
   name = var.alb-name
 
   load_balancer_type = "application"
@@ -115,15 +116,21 @@ module "alb" {
       port               = 80
       protocol           = "HTTP"
       target_group_index = 0
-      # action_type        = "forward"
+      action_type        = "redirect"
+      redirect = {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+      }
     }]   
   
-    http_tcp_listener_rules = [
+    https_listener_rules = [
     {
-      http_tcp_listener_index = 0
+      https_listener_index = 0
       priority                = 3
       actions = [{
         type         = "forward"
+        target_group_index = 0
         #content_type = "text/plain"
         #status_code  = 200
         #message_body = "This is a fixed response"
@@ -140,15 +147,7 @@ module "alb" {
       }]
     }]
 
-    
-  #https_listeners = [
-  #  {
-  #    port               = 443
-  #    protocol           = "HTTPS"
-  #    certificate_arn    = "arn:aws:iam::123456789012:server-certificate/test_cert-123456789012"
-  #    target_group_index = 0
-  #  }
-  #]
+  
 
   #http_tcp_listeners = [
   #  {
