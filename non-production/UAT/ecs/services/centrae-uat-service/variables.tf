@@ -17,6 +17,7 @@ variable "sec_group_name" {}
 
 variable "env_vars" {}
 variable "host_header_domain" {}
+variable "host_api_domain" {}
 variable "domain_name" {}
 variable "lb_name" {}
 variable "listener_arn" {}

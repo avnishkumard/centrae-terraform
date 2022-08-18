@@ -1,7 +1,7 @@
 resource "aws_ecs_service" "default" {
   name            = var.ecs_service_name
   cluster         = local.ecs_cluster_map["${var.ecs_cluster_key}"]
-  task_definition = aws_ecs_task_definition.task.arn
+  task_definition = "${aws_ecs_task_definition.task.arn}"
   launch_type     = "FARGATE"
   desired_count   = 1
 
@@ -16,13 +16,13 @@ resource "aws_ecs_service" "default" {
 
 
   load_balancer {
-    target_group_arn = local.alb_arn[0]
+    target_group_arn = aws_lb_target_group.tg.arn
     container_name   = var.lb_container_name
     container_port   = var.lb_container_port
   }
 
   lifecycle {
-    ignore_changes = [desired_count]
+    ignore_changes = [desired_count, task_definition]
   }
 
 }

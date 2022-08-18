@@ -3,7 +3,7 @@ data "aws_lb" "uat" {
 }
 data "aws_acm_certificate" "cert_global" {
   domain = var.domain_name
-  statuses = ["ISSUED"] 
+  statuses = ["ISSUED"]
 }
 data "aws_lb_listener" "listener" {
   arn = var.listener_arn
@@ -55,10 +55,8 @@ resource "aws_lb_listener_rule" "listner" {
 
     condition {
         host_header {
-            values = ["${var.host_header_domain}"]
+            values = ["${var.host_api_domain}"]
         }
     }
 
 }
-
-

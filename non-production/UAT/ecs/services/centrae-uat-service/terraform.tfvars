@@ -26,6 +26,7 @@ awslogs-region = "us-west-2"
 sec_group_name = "ecs-uat"
 
 host_header_domain = "uat.centrae.com"
+host_api_domain = "uat-api.centrae.com"
 domain_name = "*.centrae.com"
 lb_name = "Non-Production"
 listener_arn = "arn:aws:elasticloadbalancing:us-west-2:670015515275:listener/app/Non-Production/b0146169d825fc87/2bbb8a1721a1a531"
