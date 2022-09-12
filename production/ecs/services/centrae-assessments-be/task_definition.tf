@@ -20,15 +20,7 @@ resource "aws_ecs_task_definition" "task" {
       cpu       = var.cd_cpu
       memory    = var.cd_mem
       essential = true
-      environment = [{
-        Name = "DB_USERNAME"
-        Value = "" },
-        { Name = "DB_HOST"
-        Value = "nonprod-db.cfhr9gpyhmho.us-west-2.rds.amazonaws.com" },
-        { Name = "DB_DATABASE"
-        Value = "centrae_mysql" },
-        { Name = "DB_PASSWORD"
-      Value = "" }]
+      secrets = var.env_vars
       portMappings = var.cd_portMappings
       logConfiguration = {
         logDriver = "awslogs"

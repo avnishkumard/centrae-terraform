@@ -6,6 +6,9 @@ variable "alb_cidr_block" {
 
 variable "env" {}
 
+
 variable "bucket" {}
 
 variable "host_header_domain" {}
+
+variable "tags" {}

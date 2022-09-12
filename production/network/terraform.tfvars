@@ -1,6 +1,6 @@
-vpc-name = "Prod-vpc_"
+vpc-name = "Production"
 
-Prod-vpc = "20.0.128.0/17"
+cidr = "20.0.128.0/17"
 
 availability-zones = ["us-west-2a", "us-west-2b", "us-west-2c", "us-west-2d"]
 public_subnets = [
@@ -16,4 +16,12 @@ private_subnets = [
   "20.0.184.0/21"
 ]
 non-Prod-vpc = "vpc-00b2f03fc8424e62c"
+
 peer_cidr = "20.0.0.0/17"
+
+tags = {
+    Terraform = "true"
+    "Business Unit" = "Centrae"
+    Environment = "Production"
+    Created_By = "Leon"
+}

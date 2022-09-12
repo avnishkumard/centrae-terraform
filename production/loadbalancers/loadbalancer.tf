@@ -5,15 +5,19 @@ locals {
 
 }
 
+data "aws_acm_certificate" "cert_global" {
+  domain = "*.centrae.com"
+  statuses = ["ISSUED"]
+}
+
+
 resource "aws_s3_bucket" "alb-logs" {
 
   bucket = var.bucket
 
-  tags = {
-    Name        = var.bucket
-    Terraform   = "true"
-    Environment = var.env
-  }
+  tags = merge({
+    Name = var.bucket
+  },var.tags)
 }
 
 resource "aws_s3_bucket_policy" "alb_to_s3_access" {
@@ -88,13 +92,13 @@ module "alb" {
   security_groups = [aws_security_group.alb_group.id]
 
   access_logs = {
-    bucket = "alb-logs-centrae"
+    bucket = var.bucket
     prefix = "prod"
   }
   enable_deletion_protection = true
 
   target_groups = [{
-    name     = "dummyprod"
+    name     = "base-target"
     backend_protocol = "HTTP"
     backend_port     = 80
     target_type      = "ip"
@@ -117,40 +121,45 @@ module "alb" {
       port               = 80
       protocol           = "HTTP"
       target_group_index = 0
-      # action_type        = "forward"
-    }]   
-  
-    http_tcp_listener_rules = [
-    {
-      http_tcp_listener_index = 0
-      priority                = 3
-      actions = [{
-        type         = "forward"
-        #content_type = "text/plain"
-        #status_code  = 200
-        #message_body = "This is a fixed response"
-      }]
-
-      conditions = [{
-
-        host_headers = ["${var.host_header_domain}"]
-    
-       # host_headers = [{
-          #host_header_name = "x-Gimme-Fixed-Response"
-        #  values           = ["${var.host_header_domain}"]
-        #}]
-      }]
+      action_type        = "redirect"
+      redirect = {
+        port = "443"
+        protocol = "HTTPS"
+        status_code = "HTTP_301"
+      }
     }]
 
-    
-  #https_listeners = [
-  #  {
-  #    port               = 443
-  #    protocol           = "HTTPS"
-  #    certificate_arn    = "arn:aws:iam::123456789012:server-certificate/test_cert-123456789012"
-  #    target_group_index = 0
-  #  }
-  #]
+    #http_tcp_listener_rules = [
+    #{
+    #  http_tcp_listener_index = 0
+    #  priority                = 3
+    #  actions = [{
+    #    type         = "redirect"
+    #    #content_type = "text/plain"
+    #    #status_code  = 200
+    #    #message_body = "This is a fixed response"
+    #  }]
+
+    #  conditions = [{
+
+    #    host_headers = ["${var.host_header_domain}"]
+
+    #   # host_headers = [{
+    #      #host_header_name = "x-Gimme-Fixed-Response"
+    #    #  values           = ["${var.host_header_domain}"]
+    #    #}]
+    #  }]
+    #}]
+
+
+  https_listeners = [
+    {
+      port               = 443
+      protocol           = "HTTPS"
+      certificate_arn    = data.aws_acm_certificate.cert_global.arn
+      target_group_index = 0
+    }
+  ]
 
   #http_tcp_listeners = [
   #  {
@@ -160,8 +169,5 @@ module "alb" {
   #  }
   #]
 
-  tags = {
-    Terraform   = "true"
-    Environment = var.env
-  }
+  tags = merge(var.tags)
 }

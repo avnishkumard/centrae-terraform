@@ -1,5 +1,12 @@
-alb-name       = "Prod-LB"
+alb-name       = "Production"
 alb_cidr_block = "0.0.0.0/0"
 env            = "Production"
-bucket         = "alb-logs-centrae"
-host_header_domain = "dummydomain.com"
+bucket         = "alb-production-logs-centrae"
+host_header_domain = "production.centrae.com"
+
+tags = {
+    Terraform = "true"
+    "Business Unit" = "Centrae"
+    Environment = "Production"
+    Created_By = "Leon"
+}

@@ -9,7 +9,7 @@ locals {
 
 module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 4.0"
+  #version = "~> 4.0"
   name = var.security_group_name
 
   description = "Complete MySQL example security group"
@@ -58,6 +58,8 @@ module "db" {
 
 
   create_db_subnet_group = true
+  db_subnet_group_use_name_prefix = false
+  parameter_group_use_name_prefix = false
   subnet_ids             = local.private_subnets
 
   maintenance_window              = var.maintenance_window
@@ -71,8 +73,9 @@ module "db" {
 
   performance_insights_enabled          = false
   performance_insights_retention_period = var.performance_insights_retention_period
+  monitoring_role_name = "ProductionRDSRole"
   create_monitoring_role                = true
   monitoring_interval                   = 60
-  
+
   tags = merge(var.tags,{Usage="RDS Database"})
 }

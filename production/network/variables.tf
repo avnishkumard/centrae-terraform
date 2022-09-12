@@ -1,6 +1,6 @@
 variable "vpc-name" {}
 
-variable "Prod-vpc" {}
+variable "cidr" {}
 
 variable "availability-zones" {}
 
@@ -13,3 +13,5 @@ description = "Hardcoded ID for now"
 }
 
 variable "peer_cidr" {}
+
+variable "tags" {}

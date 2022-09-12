@@ -9,7 +9,7 @@ locals {
   ecsTaskExecutionRole_arn  = data.terraform_remote_state.ecs.outputs.ecsTaskExecutionRole_arn
   ecsTaskExecutionRole_map  = data.terraform_remote_state.ecs.outputs.ecsTaskExecutionRole_map
   ecsTaskExecutionRole_name = data.terraform_remote_state.ecs.outputs.ecsTaskExecutionRole_name
-  alb_arn                   = data.terraform_remote_state.alb.outputs.target_group_arns
+  tg_arn                   = data.terraform_remote_state.alb.outputs.target_group_arns
   alb_sec                   = data.terraform_remote_state.alb.outputs.security_group
   alb_sec_id                = local.alb_sec.id
   alb_target_group          = data.terraform_remote_state.alb.outputs.target_group_arns[0]

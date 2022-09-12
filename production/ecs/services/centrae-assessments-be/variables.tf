@@ -14,3 +14,8 @@ variable "lb_container_port" {}
 variable "ecs_cluster_key" {}
 variable "awslogs-region" {}
 variable "sec_group_name" {}
+variable "host_header_domain" {}
+variable "domain_name" {}
+variable "lb_name" {}
+variable "listener_arn" {}
+variable "env_vars" {}
