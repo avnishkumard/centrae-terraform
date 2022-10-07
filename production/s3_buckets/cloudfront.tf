@@ -27,8 +27,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
  origin {
           connection_attempts = 3
           connection_timeout  = 10
-          domain_name         = "prod-api.centrae.com"
-          origin_id           = "production-1288100872.us-west-2.elb.amazonaws.com"
+          domain_name         = var.backend_api
+          origin_id           = var.backend_lb_url
 
           custom_origin_config {
               http_port                = 80
@@ -116,8 +116,8 @@ resource "aws_cloudfront_distribution" "s3_distribution_seagage" {
  origin {
           connection_attempts = 3
           connection_timeout  = 10
-          domain_name         = "prod-api.centrae.com"
-          origin_id           = "production-1288100872.us-west-2.elb.amazonaws.com"
+          domain_name         = var.backend_api
+          origin_id           = var.backend_lb_url
 
           custom_origin_config {
               http_port                = 80
