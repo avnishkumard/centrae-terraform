@@ -1,5 +1,10 @@
-variable "alarm_name" {}
+variable "cpu_alarm_name" {}
 variable "threshold" {}
 variable "namespace" {}
-variable "metric_name" {}
+variable "cpu_metric_name" {}
 variable "cluster" {}
+variable "service" {}
+variable "sns_topic_cloudwatch_alarm_arn" {}
+variable "tags" {}
+variable "memory_alarm_name" {}
+variable "memory_metric_name" {}
