@@ -3,11 +3,20 @@ task_mem       = 1024
 family         = "centrae-staging-service"
 log_group_name = "/ecscentrae-staging"
 
+ab_task_cpu       = 1024
+ab_task_mem       = 2048
+ab_family         = "centrae-staging-ab-service"
+
 ecs_cluster_key = "Staging"
 
 cd_cpu  = 512
 cd_mem  = 1024
 cd_name = "centrae-staging-service"
+
+ab_cd_cpu  = 512
+ab_cd_mem  = 1024
+ab_cd_name = "centrae-staging-ab-service"
+
 
 cd_portMappings = [{
   containerPort = 80
@@ -15,9 +24,12 @@ cd_portMappings = [{
 }]
 
 ecs_service_name = "centrae-staging-service"
+ab_ecs_service_name = "centrae-staging-ab-service"
 
 lb_container_name = "centrae-staging-service"
+ab_lb_container_name = "centrae-staging-ab-service"
 lb_container_port = "80"
+ab_lb_container_port = "80"
 tags = {
   Terraform   = true
   Environment = "staging"
@@ -26,6 +38,8 @@ awslogs-region = "us-west-2"
 sec_group_name = "ecs-staging"
 
 host_header_domain = "api.staging.centrae.com"
+
+ab_host_header_domain = "api.staging.ab.centrae.com"
 
 lb_name = "Non-Production"
 
