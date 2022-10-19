@@ -1,5 +1,5 @@
 module "metric_alarm" {
-  source  = "terraform-aws-modules/cloudwatch/awsmodules/metric-alarm"
+  source  = "terraform-aws-modules/cloudwatch/aws/modules/metric-alarm"
   version = "~> 2.0"
 
   alarm_name          = var.alarm_name
