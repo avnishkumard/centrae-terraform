@@ -31,6 +31,24 @@ resource "aws_lb_target_group" "tg" {
     }
 }
 
+resource "aws_lb_target_group" "ab_tg" {
+    name        = var.ab_ecs_service_name
+    port        = 80
+    protocol    = "HTTP"
+    vpc_id      = local.vpc_id
+    target_type = "ip"
+    depends_on = [data.aws_lb.staging,]
+    lifecycle {
+      create_before_destroy = true
+    }
+health_check {
+          path = "/api/status"
+        }
+
+
+}
+
+
 
 
 resource "aws_lb_listener" "test" {
@@ -73,7 +91,7 @@ resource "aws_lb_listener_rule" "ab_listner" {
 
     action {
         type             = "forward"
-        target_group_arn = aws_lb_target_group.tg.arn
+        target_group_arn = aws_lb_target_group.ab_tg.arn
     }
 
     condition {

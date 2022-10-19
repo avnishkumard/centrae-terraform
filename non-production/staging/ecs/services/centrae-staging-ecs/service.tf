@@ -2,8 +2,8 @@ resource "aws_ecs_service" "default" {
   name            = var.ecs_service_name
   cluster         = local.ecs_cluster_map["${var.ecs_cluster_key}"]
   tags = var.tags
-  task_definition = aws_ecs_task_definition.task.arn
-  //task_definition = "arn:aws:ecs:us-west-2:670015515275:task-definition/centrae-staging-service:39"
+  //task_definition = aws_ecs_task_definition.task.arn
+  task_definition = "arn:aws:ecs:us-west-2:670015515275:task-definition/centrae-staging-service:41"
   launch_type     = "FARGATE"
   desired_count   = 1
   health_check_grace_period_seconds = 60 
@@ -48,7 +48,7 @@ resource "aws_ecs_service" "ab_service" {
 
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.tg.arn
+    target_group_arn = aws_lb_target_group.ab_tg.arn
     container_name   = var.ab_lb_container_name
     container_port   = var.ab_lb_container_port
   }

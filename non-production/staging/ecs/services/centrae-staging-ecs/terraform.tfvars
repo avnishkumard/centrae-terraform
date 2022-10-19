@@ -39,7 +39,7 @@ sec_group_name = "ecs-staging"
 
 host_header_domain = "api.staging.centrae.com"
 
-ab_host_header_domain = "api.staging.ab.centrae.com"
+ab_host_header_domain = "api-test.staging.ab.centrae.com"
 
 lb_name = "Non-Production"
 

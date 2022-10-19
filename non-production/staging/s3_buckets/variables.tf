@@ -1,5 +1,8 @@
 variable "bucket_names" {}
 
-variable "bucket_names_assets" {}
+variable "ab_bucket_name" {}
 
 variable "cert_name" {}
+
+variable "ab_cert_name" {}
+
