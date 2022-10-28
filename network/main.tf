@@ -49,7 +49,7 @@ module "vpc" {
 
   tags = {
     Terraform   = "true"
-    Environment = "Production"
+    Environment = "production"
 
   }
 }

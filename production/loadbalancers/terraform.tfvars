@@ -7,6 +7,6 @@ host_header_domain = "production.centrae.com"
 tags = {
     Terraform = "true"
     "Business Unit" = "Centrae"
-    Environment = "Production"
+    Environment = "production"
     Created_By = "Leon"
 }

@@ -2,7 +2,7 @@ alb-name       = "Non-Production"
 alb_cidr_block = "0.0.0.0/0"
 
 tags= {
-env            = "Non-Production"
+env            = "staging"
 Terraform = true
 }
 bucket         = "non-prod-alb-logs-centrae"

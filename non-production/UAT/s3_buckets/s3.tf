@@ -9,10 +9,10 @@ resource "aws_s3_bucket" "frontbucket" {
   force_destroy = "true"
 }
 
-resource "aws_s3_bucket" "assetsbucket" {
+/*resource "aws_s3_bucket" "assetsbucket" {
   bucket        = "${var.bucket_names_assets}"
   force_destroy = "true"
-}
+}*/
 
 resource "aws_s3_bucket_acl" "frontbucket_bucket_acl" {
   bucket = aws_s3_bucket.frontbucket.id
@@ -71,11 +71,38 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name = "${aws_s3_bucket.frontbucket.bucket_regional_domain_name}"
     origin_id   = "${local.s3_origin_id}"
-
+    
     #   s3_origin_config {
     #     origin_access_identity = "origin-access-identity/cloudfront/ABCDEFG1234567"
     #   }
   }
+
+  origin {
+         connection_attempts = 3
+         connection_timeout  = 10
+         domain_name         = "api.uat.centrae.com"
+         origin_id           = "Non-Production-1546516192.us-west-2.elb.amazonaws.com"
+
+         custom_origin_config {
+         http_port                = 80
+         https_port               = 443
+         origin_keepalive_timeout = 5
+         origin_protocol_policy   = "https-only"
+         origin_read_timeout      = 30
+         origin_ssl_protocols     = [
+         "TLSv1",
+         "TLSv1.1",
+         "TLSv1.2",
+                ]
+            }
+		}	
+			
+ origin {
+         connection_attempts = 3
+         connection_timeout  = 10
+         domain_name         = "frontend-uat-centrae.s3.us-west-2.amazonaws.com"
+         origin_id           = "frontbucket"
+		 }
 
   enabled             = true
   is_ipv6_enabled     = true
@@ -96,6 +123,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "${local.s3_origin_id}"
+    default_ttl = 0
+    max_ttl = 0
+    viewer_protocol_policy = "redirect-to-https"
+
 
     forwarded_values {
       query_string = false
@@ -104,11 +135,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
         forward = "none"
       }
     }
-
-    viewer_protocol_policy = "allow-all"
-    min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
+      
   }
 
 custom_error_response {

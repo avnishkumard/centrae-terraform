@@ -54,7 +54,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   #   prefix          = "myprefix"
   # }
 
-  aliases = [var.aliases_name]
+  aliases = var.aliases_name
 
 
 

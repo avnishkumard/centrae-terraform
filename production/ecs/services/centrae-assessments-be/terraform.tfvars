@@ -20,7 +20,7 @@ lb_container_port = "80"
 tags = {
     Terraform = "true"
     "Business Unit" = "Centrae"
-    Environment = "Production"
+    Environment = "production"
     Created_By = "Leon"
 }
 

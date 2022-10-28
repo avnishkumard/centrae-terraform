@@ -6,6 +6,7 @@ resource "aws_cloudwatch_metric_alarm" "centrae_ecs_cpu_utilization" {
   threshold           = var.threshold
   period              = 60
   unit                = "Count"
+  datapoints_to_alarm = 1
 
   namespace   = var.namespace
   metric_name = var.cpu_metric_name
@@ -29,6 +30,7 @@ resource "aws_cloudwatch_metric_alarm" "centrae_ecs_memory_utilization" {
   threshold           = var.threshold
   period              = 60
   unit                = "Count"
+  datapoints_to_alarm = 1
 
   namespace   = var.namespace
   metric_name = var.memory_metric_name
