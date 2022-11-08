@@ -67,7 +67,7 @@ resource "aws_lb_listener_rule" "listner" {
 }
 
 //AB
-
+/*
 resource "aws_lb_target_group" "ab_tg" {
     name        = var.ab_ecs_service_name
     port        = 80
@@ -120,4 +120,4 @@ resource "aws_lb_listener_rule" "ab_listner" {
         }
     }
 
-}
+}*/

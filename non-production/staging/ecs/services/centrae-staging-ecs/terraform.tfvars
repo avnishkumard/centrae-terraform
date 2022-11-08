@@ -28,6 +28,7 @@ ab_ecs_service_name = "centrae-staging-ab-service"
 
 lb_container_name = "centrae-staging-service"
 ab_lb_container_name = "centrae-staging-ab-service"
+
 lb_container_port = "80"
 ab_lb_container_port = "80"
 tags = {

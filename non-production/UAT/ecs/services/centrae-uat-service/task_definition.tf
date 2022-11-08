@@ -35,7 +35,7 @@ resource "aws_ecs_task_definition" "task" {
 }
 
 //AB
-resource "aws_ecs_task_definition" "ab_task" {
+/*resource "aws_ecs_task_definition" "ab_task" {
   cpu                      = var.ab_task_cpu
   memory                   = var.ab_task_mem
   family                   = var.ab_family
@@ -69,4 +69,4 @@ resource "aws_ecs_task_definition" "ab_task" {
       }
     }
   ])
-}
+}*/

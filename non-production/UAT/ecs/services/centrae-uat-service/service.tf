@@ -33,7 +33,7 @@ resource "aws_ecs_service" "default" {
 
 //ab_uat
 
-resource "aws_ecs_service" "ab_service" {
+/*resource "aws_ecs_service" "ab_service" {
   name            = var.ab_ecs_service_name
   cluster         = local.ecs_cluster_map["${var.ecs_cluster_key}"]
   task_definition = "${aws_ecs_task_definition.ab_task.arn}"
@@ -64,4 +64,4 @@ resource "aws_ecs_service" "ab_service" {
     ignore_changes = [desired_count, task_definition]
   }
 
-}
+}*/

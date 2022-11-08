@@ -32,7 +32,7 @@ lb_name = "Non-Production"
 listener_arn = "arn:aws:elasticloadbalancing:us-west-2:670015515275:listener/app/Non-Production/b0146169d825fc87/2bbb8a1721a1a531"
 
 //ab
-ab_task_cpu       = 256
+/*ab_task_cpu       = 256
 ab_task_mem       = 512
 ab_family         = "centrae-uat-ab-service"
 ab_cd_cpu  = 256
@@ -44,7 +44,7 @@ ab_ecs_service_name = "centrae-uat-ab-service"
 ab_lb_container_name = "centrae-uat-ab-service"
 ab_lb_container_port = "80"
 
-ab_host_header_domain = "api.uat.ab.centrae.com"
+ab_host_header_domain = "api.uat.ab.centrae.com"*/
 
 env_vars = [
   {

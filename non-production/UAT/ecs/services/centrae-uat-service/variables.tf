@@ -23,7 +23,7 @@ variable "lb_name" {}
 variable "listener_arn" {}
 
 //ab
-variable "ab_ecs_service_name" {}
+/*variable "ab_ecs_service_name" {}
 variable "ab_task_cpu" {}
 variable "ab_task_mem" {}
 variable "ab_family" {}
@@ -32,4 +32,4 @@ variable "ab_cd_cpu" {}
 variable "ab_cd_mem" {}
 variable "ab_cd_name" {}
 variable "ab_lb_container_name" {}
-variable "ab_host_header_domain" {}
+variable "ab_host_header_domain" {}*/
