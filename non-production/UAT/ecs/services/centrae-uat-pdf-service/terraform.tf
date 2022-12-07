@@ -1,24 +1,44 @@
-# This Accesses the data from the network outputs.tf files
-data "terraform_remote_state" "network" {
+
+data "terraform_remote_state" "ecs" {
   backend = "s3"
   config = {
-    bucket = "centrae-tf-prod"
-    key    = "network/terraform.tfstate"
-    region = "us-west-2"
+    bucket  = "centrae-tf-prod"
+    key     = "ecs/terraform.tfstate"
+    region  = "us-west-2"
     profile = "signiance-centrae"
   }
 }
 
 
+data "terraform_remote_state" "network" {
+  backend = "s3"
+  config = {
+    bucket  = "centrae-tf-prod"
+    key     = "network/terraform.tfstate"
+    region  = "us-west-2"
+    profile = "signiance-centrae"
+  }
+}
+
+data "terraform_remote_state" "alb" {
+  backend = "s3"
+  config = {
+    bucket  = "centrae-tf-prod"
+    key     = "alb/terraform.tfstate"
+    region  = "us-west-2"
+    profile = "signiance-centrae"
+  }
+}
 terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
+      version = "4.4.0"
     }
   }
   backend "s3" {
-    key               = "db_instance/terraform.tfstate"
-    bucket            = "centrae-tf-prod"
+    key               = "services/centrae-assessments-be/terraform.tfstate"
+    bucket            = "centrae-prod-ab-tf"
     encrypt           = true
     profile           = "signiance-centrae"
     region            = "us-west-2"
@@ -36,13 +56,8 @@ terraform {
   #  dynamodb_table    = "signiance-test"
 
   #}
-}
 
-#provider "aws" {
-#  region  = "us-west-2"
-#
-#  profile = "signiance-centrae"
-#}
+}
 
 provider "aws" {
   region = "us-west-2"

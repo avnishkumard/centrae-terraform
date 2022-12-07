@@ -17,7 +17,7 @@ terraform {
     }
   }
   backend "s3" {
-    key               = "db_instance/terraform.tfstate"
+    key               = "ab-db_instance/terraform.tfstate"
     bucket            = "centrae-tf-prod"
     encrypt           = true
     profile           = "signiance-centrae"
