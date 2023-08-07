@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    key               = "cloudwatch/terraform.tfstate"
+    key               = "cloudwatch/uat/terraform.tfstate"
     bucket            = "centrae-tf-non-prod"
     encrypt           = true
     profile           = "signiance-centrae"

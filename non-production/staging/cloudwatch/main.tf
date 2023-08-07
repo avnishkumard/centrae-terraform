@@ -1,9 +1,6 @@
-module "metric_alarm" {
-  source  = "terraform-aws-modules/cloudwatch/awsmodules/metric-alarm"
-  version = "~> 2.0"
-
-  alarm_name          = var.alarm_name
-  alarm_description   = "Bad errors in my-application-logs"
+resource "aws_cloudwatch_metric_alarm" "centrae_ecs_cpu_utilization" {
+  alarm_name          = var.cpu_alarm_name
+  alarm_description   = var.cpu_alarm_name
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
   threshold           = var.threshold
@@ -11,12 +8,38 @@ module "metric_alarm" {
   unit                = "Count"
 
   namespace   = var.namespace
-  metric_name = var.metric_name
+  metric_name = var.cpu_metric_name
   statistic   = "Maximum"
 
-  alarm_actions = [""]
- dimensions = {//
+  alarm_actions       = ["${var.sns_topic_cloudwatch_alarm_arn}"]
+ dimensions = {
     ClusterName =var.cluster
+    ServiceName =var.service
   }
+
+  tags = var.tags
+
+}
+
+resource "aws_cloudwatch_metric_alarm" "centrae_ecs_memory_utilization" {
+  alarm_name          = var.memory_alarm_name
+  alarm_description   = var.memory_alarm_name
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 1
+  threshold           = var.threshold
+  period              = 60
+  unit                = "Count"
+
+  namespace   = var.namespace
+  metric_name = var.memory_metric_name
+  statistic   = "Maximum"
+
+  alarm_actions       = ["${var.sns_topic_cloudwatch_alarm_arn}"]
+ dimensions = {
+    ClusterName =var.cluster
+    ServiceName =var.service
+  }
+
+  tags = var.tags
 
 }

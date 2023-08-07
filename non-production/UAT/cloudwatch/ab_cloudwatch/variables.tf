@@ -1,0 +1,10 @@
+variable "ab_cpu_alarm_name" {}
+variable "threshold" {}
+variable "namespace" {}
+variable "ab_cpu_metric_name" {}
+variable "cluster" {}
+variable "ab_service" {}
+variable "sns_topic_cloudwatch_alarm_arn" {}
+//variable "tags" {}
+variable "ab_memory_alarm_name" {}
+variable "ab_memory_metric_name" {}

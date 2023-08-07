@@ -3,7 +3,7 @@ task_mem       = 512
 family         = "centrae-assesments-be-prod"
 log_group_name = "/ecs/centrae-assessments-be"
 
-ecs_cluster_key = "centrae-prod"
+ecs_cluster_key = "Production"
 
 cd_cpu  = 256
 cd_mem  = 512

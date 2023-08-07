@@ -1,0 +1,17 @@
+variable "engine" {}
+variable "engine_varsion" {}
+variable "db_family" {}
+variable "db_major_engine_version" {}
+variable "instance_type" {}
+variable "allocated_storage" {}
+variable "max_allocated_storage" {}
+variable "db_name" {}
+variable "username" {}
+variable "performance_insights_retention_period" {}
+variable "tags" {}
+variable "security_group_name" {}
+variable "maintenance_window" {}
+variable "backup_window" {}
+variable "enabled_cloudwatch_logs_exports" {}
+variable "backup_retention_period" {}
+variable "db_subnet_group_name" {}
